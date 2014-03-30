@@ -18,21 +18,14 @@ public class CompositeParser implements BankTransactionParser {
 
     @Override
     public BankTransactionData parse(String rawData) {
-        for (BankTransactionParser parser : parsers) {
-            if (parser.canParse(rawData)) {
-                return parser.parse(rawData);
-            }
-        }
-        throw new IllegalArgumentException();
+        return parsers.stream().
+                filter(p -> p.canParse(rawData)).findFirst().
+                orElseThrow(IllegalArgumentException::new).
+                parse(rawData);
     }
 
     @Override
     public boolean canParse(String rawData) {
-        for (BankTransactionParser parser : parsers) {
-            if (parser.canParse(rawData)) {
-                return true;
-            }
-        }
-        return false;
+        return parsers.stream().anyMatch(p -> p.canParse(rawData));
     }
 }

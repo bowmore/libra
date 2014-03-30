@@ -7,20 +7,18 @@ import be.degreyt.libra.money.Saldo;
 import be.degreyt.libra.time.Day;
 import be.degreyt.libra.util.Holder;
 import be.degreyt.libra.util.NonNullHolder;
-import java.util.Optional;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TransactionBuilderImpl implements TransactionBuilder {
 
     private final Set<Mutation> mutations = new LinkedHashSet<>();
     private final NonNullHolder<Day> dayHolder;
+    private final Currency currency;
 
-    public TransactionBuilderImpl(Day day) {
+    public TransactionBuilderImpl(Day day, Currency currency) {
         this.dayHolder = new NonNullHolder(day);
+        this.currency = currency;
     }
 
     @Override
@@ -37,19 +35,15 @@ public class TransactionBuilderImpl implements TransactionBuilder {
 
     @Override
     public boolean isBalanced() {
-        Saldo saldo = null;
-        for (Mutation mutation : mutations) {
-            saldo = saldo == null ? mutation.getSaldo() : saldo.add(mutation.getSaldo());
-        }
-        return false;
+        return mutations.stream().
+                map(Mutation::getSaldo).
+                reduce(Saldo.zero(currency), (a, b) -> a.add(b)).
+                isBalanced();
     }
 
     @Override
     public Transaction build() {
         Optional<Day> foundDay = dayHolder.get();
-        if (foundDay.isPresent()) {
-            return new TransactionImpl(new TransactionNumberGeneratorImpl(), foundDay.get(), mutations, "");
-        }
-        throw new NoDaySpecifiedException();
+        return new TransactionImpl(new TransactionNumberGeneratorImpl(), foundDay.orElseThrow(NoDaySpecifiedException::new), mutations, "", currency);
     }
 }
