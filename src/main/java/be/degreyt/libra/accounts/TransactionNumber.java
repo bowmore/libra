@@ -40,4 +40,13 @@ public final class TransactionNumber implements Comparable<TransactionNumber>, E
     public long toLong() {
         return number;
     }
+
+    public TransactionNumber subsequent() {
+        return new TransactionNumber(number + 1);
+    }
+
+    public TransactionNumber preceding() {
+        return new TransactionNumber(number - 1);
+    }
+
 }
