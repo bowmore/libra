@@ -6,7 +6,7 @@ import be.degreyt.libra.accounts.Ledger;
 import be.degreyt.libra.parsers.BankAccountNumber;
 import java.util.Optional;
 
-import static be.degreyt.old.api.BankAccountNumber.isBankAccountNumber;
+import static be.degreyt.libra.parsers.BankAccountNumber.isBankAccountNumber;
 
 public class OtherBankAccountNumberBasedRule implements AccountResolutionRule {
 

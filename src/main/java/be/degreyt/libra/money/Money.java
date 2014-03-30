@@ -1,9 +1,6 @@
 package be.degreyt.libra.money;
 
 
-import be.degreyt.old.api.CurrencyFormatter;
-import be.degreyt.old.api.CurrencyMismatchException;
-
 import java.math.BigDecimal;
 import java.util.Currency;
 

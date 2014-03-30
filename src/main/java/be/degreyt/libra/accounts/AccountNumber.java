@@ -40,4 +40,8 @@ public final class AccountNumber implements Comparable<AccountNumber> {
     public int compareTo(AccountNumber o) {
         return this.value.compareTo(o.value);
     }
+
+    public static AccountNumber of(String s) {
+        return new AccountNumber(s);
+    }
 }
