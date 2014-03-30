@@ -6,6 +6,7 @@ import be.degreyt.libra.time.Day;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Collection;
+import java.util.Currency;
 import java.util.Set;
 
 public class TransactionImpl implements Transaction {
@@ -15,19 +16,16 @@ public class TransactionImpl implements Transaction {
     private final Set<ValidatedMutation> mutations;
     private final String documentReferral;
 
-    public TransactionImpl(TransactionNumberGenerator generator, Day day, Set<Mutation> mutations, String documentReferral) {
+    public TransactionImpl(TransactionNumberGenerator generator, Day day, Set<Mutation> mutations, String documentReferral, Currency currency) {
         this.documentReferral = documentReferral;
-        Saldo saldo = null;
-        for (Mutation mutation : mutations) {
-            saldo = saldo == null ? mutation.getSaldo() : saldo.add(mutation.getSaldo());
-        }
+        Saldo saldo = mutations.stream().
+                map(Mutation::getSaldo).
+                reduce(Saldo.zero(currency), (a, b) -> a.add(b));
         if (saldo == null || !saldo.isBalanced()) {
             throw new IllegalTransactionException();
         }
         ImmutableSet.Builder<ValidatedMutation> builder = ImmutableSet.builder();
-        for (Mutation mutation : mutations) {
-            builder.add(new ValidatedMutationImpl(mutation));
-        }
+        mutations.stream().map(ValidatedMutationImpl::new).forEach(builder::add);
         this.mutations = builder.build();
         number = generator.next();
         this.day = day;
@@ -55,8 +53,6 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public void execute(Account rootAccount) {
-        for (ValidatedMutation mutation : mutations) {
-            mutation.execute();
-        }
+        mutations.forEach(ValidatedMutation::execute);
     }
 }

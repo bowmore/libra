@@ -1,5 +1,7 @@
 package be.degreyt.libra.comparable;
 
+import java.util.Arrays;
+
 /**
  *
  */
