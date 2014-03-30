@@ -1,5 +1,7 @@
 package be.degreyt.libra.time;
 
+import com.sun.istack.internal.NotNull;
+
 import java.time.LocalDate;
 
 public final class Day implements Comparable<Day> {
@@ -58,5 +60,9 @@ public final class Day implements Comparable<Day> {
 
     public boolean after(Day day) {
         return this.day.isAfter(day.day);
+    }
+
+    public static Day of(int year, int month, int day) {
+        return new Day(year, month, day);
     }
 }
