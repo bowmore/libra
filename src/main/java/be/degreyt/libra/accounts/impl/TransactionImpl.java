@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Set;
 
-public class TransactionImpl implements Transaction {
+class TransactionImpl implements Transaction {
 
     private final Day day;
     private final TransactionNumber number;

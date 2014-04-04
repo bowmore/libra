@@ -5,7 +5,7 @@ import be.degreyt.libra.accounts.Mutation;
 import be.degreyt.libra.accounts.ValidatedMutation;
 import be.degreyt.libra.money.Saldo;
 
-public class ValidatedMutationImpl implements ValidatedMutation {
+class ValidatedMutationImpl implements ValidatedMutation {
 
     private final Mutation mutation;
 

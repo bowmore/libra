@@ -13,7 +13,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 
-public abstract class AbstractAccount implements Account {
+abstract class AbstractAccount implements Account {
     protected final AccountNumber number;
     protected final String name;
     private final List<ValidatedMutation> mutations = new ArrayList<>();

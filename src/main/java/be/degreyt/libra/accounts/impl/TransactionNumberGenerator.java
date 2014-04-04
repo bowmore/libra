@@ -2,7 +2,7 @@ package be.degreyt.libra.accounts.impl;
 
 import be.degreyt.libra.accounts.TransactionNumber;
 
-public interface TransactionNumberGenerator {
+interface TransactionNumberGenerator {
 
     TransactionNumber next();
 }

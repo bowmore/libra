@@ -1,20 +1,16 @@
 package be.degreyt.libra.accounts.impl;
 
-import be.degreyt.libra.accounts.Account;
-import be.degreyt.libra.accounts.Mutation;
-import be.degreyt.libra.accounts.Transaction;
-import be.degreyt.libra.accounts.TransactionBuilder;
+import be.degreyt.libra.accounts.*;
 import be.degreyt.libra.money.DebitCredit;
 import be.degreyt.libra.money.Money;
 import be.degreyt.libra.money.Saldo;
 import be.degreyt.libra.time.Day;
-import be.degreyt.libra.util.Holder;
 import be.degreyt.libra.util.NonNullHolder;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-public class TransactionBuilderImpl implements TransactionBuilder {
+class TransactionBuilderImpl implements TransactionBuilder {
 
     private final Set<Mutation> mutations = new LinkedHashSet<>();
     private final NonNullHolder<Day> dayHolder;

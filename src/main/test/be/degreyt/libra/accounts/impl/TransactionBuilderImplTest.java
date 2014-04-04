@@ -34,6 +34,5 @@ public class TransactionBuilderImplTest {
         assertThat(transaction).isNotNull();
         assertThat(transaction.getMutations().stream().map(ValidatedMutation::getSaldo).reduce(Saldo.zero(currency), (a, b) -> a.add(b)).isBalanced()).isTrue();
 
-
     }
 }

@@ -4,7 +4,7 @@ import be.degreyt.libra.accounts.Account;
 import be.degreyt.libra.accounts.Mutation;
 import be.degreyt.libra.money.Saldo;
 
-public class MutationImpl implements Mutation {
+class MutationImpl implements Mutation {
 
     private final Account account;
     private final Saldo saldo;

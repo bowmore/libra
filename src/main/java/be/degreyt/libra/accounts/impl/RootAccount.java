@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import java.util.Currency;
 
-public class RootAccount extends AbstractAccount {
+class RootAccount extends AbstractAccount {
 
     private final Currency currency;
 

@@ -12,7 +12,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 
-public class AccountImpl extends AbstractAccount {
+class AccountImpl extends AbstractAccount {
 
     private final Account parent;
 
